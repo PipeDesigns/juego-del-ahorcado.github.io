@@ -101,13 +101,14 @@ a:hover p{
 
 .palabra{
     display: flex;
-    width: 100%;
+    width: 500px;
+    justify-content: center;
+    align-content: center;
     position: relative;
-    flex-direction: row;
-    flex-wrap: wrap;
 }
 
 span{
+    align-content: center;
     display: flex;
     margin: -5px;
     visibility: hidden;
@@ -129,11 +130,13 @@ span img{
 
 .container-letrasErradas{
     position: absolute;
+    width: 50%;
     top: 50%;
-    left: 50%;
+    left: 33%;
 }
 
 .letrasErradas{
+    text-align: center;
     position: relative;
     padding-top: 2%;
     margin-top: 20px;

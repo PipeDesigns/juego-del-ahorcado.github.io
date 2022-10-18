@@ -15,7 +15,7 @@ var palabras = ["HTML",
 "CSS",
 "ALURA",
 "LOGICA",
-"ORACLE",
+"ORACLEAB",
 "BRUJA",]
 
 function escogerPalabra(n){
