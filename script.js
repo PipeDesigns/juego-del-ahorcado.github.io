@@ -11,11 +11,12 @@ var textContent;
 let nuevoArray = [];
 let nuevoArray2 = [];
 // let pattern = new RegExp('[A-ZÑ]?'); //patron para letras entre la A y la Z mayusculas y la Ñ
-var palabras = ["HTML",
+var palabras = 
+["HTML",
 "CSS",
 "ALURA",
-"LOGICA",
-"ORACLEAB",
+"LOGICALK",
+"ORACLE",
 "BRUJA",]
 
 function escogerPalabra(n){
@@ -29,6 +30,10 @@ var numeroPalabra = escogerPalabra(palabras.length);   //variable asociada al nu
 
 function agregarBtn(){
     agregar(agregarInput.value);    //función de botón que llama a la función para agregar la palabra
+    const url = new URL(window.location);
+    // url.searchParams.set('juego','.html');
+    // window.history.pushState({}, '', url);  
+    history.pushState(null, "", "juego.html");
 }
 
 function agregar(value){         // funcion para agregar una nueva palabra en mayuscula
@@ -42,7 +47,7 @@ const bgrImg = document.createDocumentFragment();
 function escoger() {
     for ( const letra of palabraAleatoria) {
         palabraElegida= document.createElement("span");
-        palabraElegida.innerHTML += `<img src= "imagenes/LETRA.png"><b>${letra}</b>`
+        palabraElegida.innerHTML += `<img src= "imagenes/LETRA.SVG"><b>${letra}</b>`
         palabraElegida.classList.add(letra);
         fragment.appendChild(palabraElegida);
     }
