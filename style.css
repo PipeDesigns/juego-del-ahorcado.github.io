@@ -2,11 +2,8 @@
     font-family: woodfont;
     src: url(woodfont.otf);
 }
-.fondo-juego{
-    position: absolute;
-    bottom: 0%;
-    width: 100%;
-}
+/* PAGINA INDEX */
+
 .botones{
     width: 20%;
     height: 35%;
@@ -22,38 +19,46 @@
     display: flex;
     width: 100%;
 }
-.texto-jugar, .texto-agregar, .texto-guardar, .texto-cancelar{
+
+.texto-jugar, .texto-agregar, .texto-guardar, .texto-cancelar, .texto-nueva, .texto-desistir{
     text-align: center;
     position: absolute;
     font-family: woodfont;
     color: #5E3E58;
     text-shadow: 2px 2px 0px #000000;
 }
+
 .texto-jugar{
     font-size: 250%;
 }
+
 .texto-agregar{
     width: 100%;
     font-size: 190%;
 }
+
 .btn-agregar{
     display: flex;
     width: 140%;
 }
 
-a{  
+.paginaIndex a, .paginaAgregar a {  
+    cursor: pointer;
     justify-content: center;
     width: 70%;
     display: flex;
     align-items: center;
     text-decoration: none;
 }
+
 a:hover .btn-agregar{
     width: 145%;
 }
+
 a:hover .btn-jugar{
     width: 105%;
 }
+
 a:hover p{
     color: #2CB094;
     transform: scale(1.03);
@@ -71,6 +76,15 @@ a:hover p{
     bottom: 0px;
     width: 100%;
 }
+
+/* PAGINA JUGAR */
+
+.fondo-juego{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+}
+
 .horca{
     position: absolute;
     bottom: 0%;
@@ -78,6 +92,7 @@ a:hover p{
     width: 90%;
     animation: aparecer 1s;
 }
+
 @keyframes aparecer { 
     0% {
       opacity: 0;
@@ -86,6 +101,7 @@ a:hover p{
         opacity: 1;
     }
 }
+
 .sencillo{
     position: absolute;
     bottom: 0%;
@@ -105,51 +121,129 @@ a:hover p{
     display: flex;
     width: 500px;
     justify-content: center;
-    align-content: center;
-    position: relative;
+    position: absolute;
 }
 
 span{
     align-content: center;
+    justify-content: center;
     display: flex;
-    margin: -5px;
     visibility: hidden;
-    font-size: 25px;
+    font-size: 40px;
     font-family: woodfont;
     color: white;
 }
 .palabra b{
     display: flex;
-    position: relative;
-    right: 50%;
-    top: 30%;
+    position: absolute;
+    top: 25%;
 }
 
 span img{
     visibility: visible;
-    width: 60px;
+    width: 70px;
 }
 
 .container-letrasErradas{
+    visibility: hidden;
     position: absolute;
-    width: 50%;
+    height: 20%;
+    width: 30%;
     top: 50%;
-    left: 48%;
+    left: 58.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: letrasErradas 1s;
+}
+
+@keyframes letrasErradas {
+    0% {
+      opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 
 .letrasErradas{
-    text-align: center;
-    position: relative;
-    padding-top: 2%;
+    padding: 10px 15px;
+    background-color: #000000b7;
+    display: flex;
+    position: absolute;
+    top: 50%;
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 35px;
     font-family: woodfont;
     color: white;
+}
+
+.palabra-letrasErradas{
+    font-size: 25px;
+    font-family: woodfont;
+    color: #2CB094;
 }
 
 .aparecer{
     visibility: visible;
 }
+
+.jugar-nueva{
+    position: absolute;
+    top: 4%;
+    left: 4%;
+    display: inline-block;
+    width: 12%;
+    cursor: pointer;
+}
+.jugar-desistir{
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    display: inline-block;
+    width: 12%;
+    cursor: pointer;
+}
+
+.btn{
+    width: 100%;
+}
+
+.texto-nueva, .texto-desistir{
+    display: flex;
+    font-size: 200%;
+    top: 25%;
+    left: 11%;
+}
+
+.intentos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 35%;
+    left: 0%;
+    width: 20%;
+}
+.intentos img{
+    width: 40%;
+}
+.intentos p{
+    position: absolute;
+    font-size: 110px;
+    color: #5E3E58;
+    text-shadow: 2px 3px 0px #000000;
+}
+.titulo{
+    position: absolute;
+    top: -20%;
+    font-size: 25px;
+    font-family: woodfont;
+    color: #2CB094;
+}
+
+/* PAGINA AGREGAR */
+
 .fondo-agregar{
     position: absolute;
     bottom: 0%;
@@ -201,9 +295,21 @@ a:hover .btn-guardar{
 }
 ::placeholder{
     text-align: center;
-    font-size: 50%;
+    font-size: 65%;
     color: gray;
 }
 .input-text:focus{
     outline: 0;
+}
+
+/* APARTE */
+
+.paginaIndex{
+    display: block;
+}
+.paginaJugar{
+    display: none;
+}
+.paginaAgregar{
+    display: none;
 }

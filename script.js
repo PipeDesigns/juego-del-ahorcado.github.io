@@ -1,9 +1,10 @@
 const imagenes = document.querySelector(".imagenes");
-const palabra = document.querySelector(".palabra")
-const letrasErradas = document.querySelector(".letrasErradas")
-const agregarInput = document.querySelector(".input-text")
-const horca = document.querySelector(".bruja")
-const primero = document.querySelector(".horca")
+const palabra = document.querySelector(".palabra");
+const letrasErradas = document.querySelector(".letrasErradas");
+const agregarInput = document.querySelector(".input-text");
+const horca = document.querySelector(".bruja");
+const primero = document.querySelector(".horca");
+var validacion = 0;
 var intentos = 7;
 var palabraElegida;
 const imagen = document.querySelector(".letra");
@@ -15,9 +16,13 @@ var palabras =
 ["HTML",
 "CSS",
 "ALURA",
-"LOGICALK",
+"LOGICA",
 "ORACLE",
-"BRUJA",]
+"BRUJA",
+"HECHIZO",
+"MAGIA",
+"CONJURO",
+"EMBRUJO"];
 
 function escogerPalabra(n){
     random = Math.round(Math.random()*n); //funcion para randomizar un numero entre el 0 y el numero mayor del array
@@ -26,25 +31,38 @@ function escogerPalabra(n){
     }
     return random;
 }
-var numeroPalabra = escogerPalabra(palabras.length);   //variable asociada al numero que se randomizó
 
 function agregarBtn(){
-    agregar(agregarInput.value);    //función de botón que llama a la función para agregar la palabra
-    const url = new URL(window.location);
-    // url.searchParams.set('juego','.html');
-    // window.history.pushState({}, '', url);  
-    history.pushState(null, "", "juego.html");
+
+    const hola = /[A-ZÑa-zñ]/.test(agregarInput.value);
+    if (agregarInput.value == ""){
+        paginaJugar();
+    }else{
+        if (hola){
+            // comprobarPalabra();
+            agregar(agregarInput.value);    //función de botón que llama a la función para agregar la palabra
+            paginaJugar();
+        }
+        else{
+            alert("Solo estan permitidas las palabras de maximo 8 letras")
+        }
+    }
 }
 
 function agregar(value){         // funcion para agregar una nueva palabra en mayuscula
+    if (value != ""){
     value = value.toUpperCase();
     palabras.push(value);
     console.log(palabras);
+    }
 }
-palabraAleatoria =  palabras[numeroPalabra].split("");     //posiblemente no funcione y se necesite splitear la palabra
+
 const fragment = document.createDocumentFragment();
 const bgrImg = document.createDocumentFragment();
+
 function escoger() {
+    var numeroPalabra = escogerPalabra(palabras.length);   //variable asociada al numero que se randomizó
+    palabraAleatoria =  palabras[numeroPalabra].split("");
     for ( const letra of palabraAleatoria) {
         palabraElegida= document.createElement("span");
         palabraElegida.innerHTML += `<img src= "imagenes/LETRA.SVG"><b>${letra}</b>`
@@ -54,14 +72,33 @@ function escoger() {
     // imagen.innerHTML = "imagenes/LETRA.png";
     palabra.appendChild(fragment);
 }
-escoger();
+var tecla; //recoge el evento de la tecla
 
-document.addEventListener("keydown", verificacion) //recoge el evento de la tecla
+function paginaJugar(){
+    document.querySelector(".paginaIndex").style.display = `none`;
+    document.querySelector(".paginaJugar").style.display = `block`;
+    document.addEventListener("keydown", verificacion, true);
+    document.querySelector(".container-letrasErradas").style.visibility = "hidden";
+    limpiar();
+    agregarInput.value = "";
+}
+function paginaAgregar(){
+    document.querySelector(".paginaIndex").style.display = `none`;
+    document.querySelector(".paginaJugar").style.display = `none`;
+    document.querySelector(".paginaAgregar").style.display = `block`;
+    tecla = document.removeEventListener("keydown", verificacion, true);
+}
+function paginaIndex(){
+    document.querySelector(".paginaJugar").style.display = `none`;
+    document.querySelector(".paginaAgregar").style.display = `none`;
+    document.querySelector(".paginaIndex").style.display = `block`;
+    tecla = document.removeEventListener("keydown", verificacion, true);
+}
 
 function verificacion(event){
     key = event.key.toUpperCase();   // Deja solo la letra que se apretó en mayuscula
-    const existe = palabraAleatoria.includes(key);
-    const repite = nuevoArray.includes(key);
+    const existe = palabraAleatoria.includes(key);   //devuelve true si existe
+    const repite = nuevoArray.includes(key);        //devuelve true si se repite
     const repite2 = nuevoArray2.includes(key);
     const repetidas = repite + repite2;
     const abecedario = /^[A-ZÑ]$/.test(key);
@@ -77,19 +114,23 @@ function verificacion(event){
         }
         if (nuevoArray.length == palabraAleatoria.length) {
             alert("FELICIDADES, USTED HA GANADO")
+            paginaJugar();
         }
         if(repetidas){
-            alert("palabra repetida");
+            alert("letra repetida");
         }
         if(existe == false && repite2 == false){
                 nuevoArray2.push(key);
             letrasErradas.innerHTML += (" "+ key);
             intentos = intentos -1;
+            document.querySelector(".container-letrasErradas").style.visibility = "visible";
+            document.querySelector(".intentos-numero").innerHTML = intentos
             bruja(intentos);
         }
     } 
     if(intentos == 0){
         alert("Perdiste la palabra era " + palabraAleatoria.join(""));
+        paginaJugar();
     } 
 }
 
@@ -146,3 +187,22 @@ function bruja(numero){
         break;
     }
 }
+
+ function limpiar(){
+    palabra.innerHTML= "";
+    escogerPalabra(palabras.length);
+    escoger();
+    intentos = 7;
+    horca.innerHTML = "";
+    letrasErradas.innerHTML = "";
+    document.querySelector(".intentos-numero").innerHTML = "7"
+    nuevoArray2 = [];
+    nuevoArray = [];
+ }
+
+ function comprobarPalabra(){
+    const existePalabra = palabra.includes(agregarInput.value)
+    if (existePalabra){
+        alert("La palabra ya existe, agrega otra");
+    }
+ }
