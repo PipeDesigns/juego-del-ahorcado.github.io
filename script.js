@@ -65,7 +65,7 @@ function escoger() {
     palabraAleatoria =  palabras[numeroPalabra].split("");
     for ( const letra of palabraAleatoria) {
         palabraElegida= document.createElement("span");
-        palabraElegida.innerHTML += `<img src= "imagenes/LETRA.SVG"><b>${letra}</b>`
+        palabraElegida.innerHTML += `<img src= "imagenes/LETRA.svg"><b>${letra}</b>`
         palabraElegida.classList.add(letra);
         fragment.appendChild(palabraElegida);
     }
