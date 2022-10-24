@@ -22,7 +22,11 @@ var palabras =
 "HECHIZO",
 "MAGIA",
 "CONJURO",
-"EMBRUJO"];
+"EMBRUJO",
+"BOSQUE",
+"TERROR",
+"MIEDO",
+];
 
 function escogerPalabra(n){
     random = Math.round(Math.random()*n); //funcion para randomizar un numero entre el 0 y el numero mayor del array
@@ -33,27 +37,14 @@ function escogerPalabra(n){
 }
 
 function agregarBtn(){
-
-    const hola = /[A-ZÑa-zñ]/.test(agregarInput.value);
-    if (agregarInput.value == ""){
-        paginaJugar();
-    }else{
-        if (hola){
-            // comprobarPalabra();
-            agregar(agregarInput.value);    //función de botón que llama a la función para agregar la palabra
-            paginaJugar();
-        }
-        else{
-            alert("Solo estan permitidas las palabras de maximo 8 letras")
-        }
-    }
+    comprobarTextarea();
 }
 
 function agregar(value){         // funcion para agregar una nueva palabra en mayuscula
     if (value != ""){
-    value = value.toUpperCase();
-    palabras.push(value);
-    console.log(palabras);
+        value = value.toUpperCase();
+        palabras.push(value);
+        // console.log(palabras);
     }
 }
 
@@ -63,10 +54,10 @@ const bgrImg = document.createDocumentFragment();
 function escoger() {
     var numeroPalabra = escogerPalabra(palabras.length);   //variable asociada al numero que se randomizó
     palabraAleatoria =  palabras[numeroPalabra].split("");
-    for ( const letra of palabraAleatoria) {
+    for ( var i=0; i < palabraAleatoria.length; i++) {
         palabraElegida= document.createElement("span");
-        palabraElegida.innerHTML += `<img src= "imagenes/LETRA.svg"><b>${letra}</b>`
-        palabraElegida.classList.add(letra);
+        palabraElegida.innerHTML += `<img src= "imagenes/LETRA.svg"><b>${palabraAleatoria[i]}</b>`
+        palabraElegida.classList.add(palabraAleatoria[i]+i);
         fragment.appendChild(palabraElegida);
     }
     // imagen.innerHTML = "imagenes/LETRA.png";
@@ -79,6 +70,11 @@ function paginaJugar(){
     document.querySelector(".paginaJugar").style.display = `block`;
     document.addEventListener("keydown", verificacion, true);
     document.querySelector(".container-letrasErradas").style.visibility = "hidden";
+    document.getElementById("repetida").classList.remove("repetida");
+    document.getElementById("alertaFallo-fondo").classList.remove("alertaFallo-fondo");
+    document.getElementById("alertaCorrecto-fondo").classList.remove("alertaCorrecto-fondo");
+    agregarInput.blur();
+
     limpiar();
     agregarInput.value = "";
 }
@@ -86,7 +82,9 @@ function paginaAgregar(){
     document.querySelector(".paginaIndex").style.display = `none`;
     document.querySelector(".paginaJugar").style.display = `none`;
     document.querySelector(".paginaAgregar").style.display = `block`;
+    document.getElementById("palabraExiste").classList.remove("alertaAgregar");
     tecla = document.removeEventListener("keydown", verificacion, true);
+    // agregarInput.onkeydown = "cancelar()";
 }
 function paginaIndex(){
     document.querySelector(".paginaJugar").style.display = `none`;
@@ -104,20 +102,26 @@ function verificacion(event){
     const abecedario = /^[A-ZÑ]$/.test(key);
     if(abecedario){
         if (repite == false && existe){
-            for( const letra of palabraAleatoria){
-                if(letra == key){
-                    nuevoArray.push(letra);
-                    document.querySelector("."+letra).classList.add("aparecer");
-                    document.querySelector("."+letra).classList.remove(letra);
+            for( var i=0; i < palabraAleatoria.length; i++){
+                if(palabraAleatoria[i] == key){
+                    nuevoArray.push(palabraAleatoria[i]);
+                    document.querySelector("."+palabraAleatoria[i]+i).classList.add("aparecer");
+
                 }
             }    
         }
         if (nuevoArray.length == palabraAleatoria.length) {
-            alert("FELICIDADES, USTED HA GANADO")
-            paginaJugar();
+            document.getElementById("alertaCorrecto-fondo").classList.remove("alertaCorrecto-fondo")
+            document.getElementById("alertaCorrecto-fondo").offsetWidth;
+            document.getElementById("alertaCorrecto-fondo").classList.add("alertaCorrecto-fondo")
+            setTimeout( function alertaPerder(){
+                paginaJugar();
+            },3600)
         }
         if(repetidas){
-            alert("letra repetida");
+            document.getElementById("repetida").classList.remove("repetida");
+            document.getElementById("repetida").offsetWidth;
+            document.getElementById("repetida").classList.add("repetida");
         }
         if(existe == false && repite2 == false){
                 nuevoArray2.push(key);
@@ -129,55 +133,60 @@ function verificacion(event){
         }
     } 
     if(intentos == 0){
-        alert("Perdiste la palabra era " + palabraAleatoria.join(""));
-        paginaJugar();
+        tecla = document.removeEventListener("keydown", verificacion, true);
+        for( var i=0; i < palabraAleatoria.length; i++){
+            document.querySelector("."+palabraAleatoria[i]+i).className = "aparecer";
+        }
+        laPalabraEra = palabraAleatoria.join("");
+        console.log(laPalabraEra)
+        document.querySelector(".texto-alertaFallo").innerHTML = laPalabraEra
+        document.getElementById("alertaFallo-fondo").classList.remove("alertaFallo-fondo")
+        document.getElementById("alertaFallo-fondo").offsetWidth;
+        document.getElementById("alertaFallo-fondo").classList.add("alertaFallo-fondo")
+        setTimeout( function alertaPerder(){
+            paginaJugar();
+        },3600)
     } 
 }
+
 
 function bruja(numero){
     switch (numero){
         case 6:
-            console.log(numero);
         horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-3.svg">`
         break;
 
         case 5:
-            console.log(numero);
             document.querySelector(".horca").classList.add("sencillo")
             document.querySelector(".horca").classList.remove("horca");
         horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-4.svg">`
         break;
         
         case 4:
-            console.log(numero);
             document.querySelector(".horca").classList.add("sencillo")
             document.querySelector(".horca").classList.remove("horca");
             horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-5.svg">`
         break;
 
         case 3:
-            console.log(numero);
             document.querySelector(".horca").classList.add("sencillo")
             document.querySelector(".horca").classList.remove("horca");
             horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-6.svg">`
         break;
         
         case 2:
-            console.log(numero);
             document.querySelector(".horca").classList.add("sencillo")
             document.querySelector(".horca").classList.remove("horca");
             horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-7.svg">`
         break;
         
         case 1:
-            console.log(numero);
             document.querySelector(".horca").classList.add("sencillo")
             document.querySelector(".horca").classList.remove("horca");
             horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-8.svg">`
         break;
         
         case 0:
-            console.log(numero);
             document.querySelector(".horca").classList.add("sencillo")
             document.querySelector(".horca").classList.remove("horca");
             horca.innerHTML += `<img class="horca" src="imagenes/AHORCADO PARTES/PARTE-9.svg">`
@@ -200,9 +209,39 @@ function bruja(numero){
     nuevoArray = [];
  }
 
- function comprobarPalabra(){
-    const existePalabra = palabra.includes(agregarInput.value)
-    if (existePalabra){
-        alert("La palabra ya existe, agrega otra");
+ function cancelar(){
+    var key = event.keyCode;
+    if(key == 13){
+        event.preventDefault();
+        agregarBtn();
+    }
+    if(key == 32){
+        event.preventDefault();
+    }
+ }
+ function comprobarTextarea (){
+    const existePalabra = palabras.includes(agregarInput.value);
+    const pattern = new RegExp('^[A-Z]+$', 'i');
+    if (agregarInput.value == ""){
+        paginaJugar();
+    }else{
+        if (pattern.test(agregarInput.value)){
+            const existePalabra = palabras.includes(agregarInput.value.toUpperCase())
+            // console.log(agregarInput.value)
+            if (existePalabra){
+                document.getElementById("palabraExiste").classList.remove("alertaAgregar");
+                document.getElementById("palabraExiste").offsetWidth;
+                document.getElementById("palabraExiste").classList.add("alertaAgregar");
+            }
+            if(existePalabra == false){
+                agregar(agregarInput.value);    //función de botón que llama a la función para agregar la palabra
+                paginaJugar();
+            }
+        }
+        else{
+            document.getElementById("permitidas").classList.remove("alertaAgregar");
+            document.getElementById("permitidas").offsetWidth;
+            document.getElementById("permitidas").classList.add("alertaAgregar");
+        }
     }
  }

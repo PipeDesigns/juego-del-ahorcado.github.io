@@ -6,18 +6,13 @@
 
 .botones{
     width: 20%;
-    height: 35%;
+    height: 40%;
     justify-content: space-between;
     position: absolute;
     left: 60%;
-    bottom: 40%;
+    bottom: 30%;
     display: flex;
     flex-direction: column;
-}
-
-.btn-jugar{
-    display: flex;
-    width: 100%;
 }
 
 .texto-jugar, .texto-agregar, .texto-guardar, .texto-cancelar, .texto-nueva, .texto-desistir{
@@ -29,17 +24,22 @@
 }
 
 .texto-jugar{
-    font-size: 250%;
+    font-size: 350%;
 }
 
 .texto-agregar{
     width: 100%;
-    font-size: 190%;
+    font-size: 280%;
+}
+
+.btn-jugar{
+    display: flex;
+    width: 130%;
 }
 
 .btn-agregar{
     display: flex;
-    width: 140%;
+    width: 130%;
 }
 
 .paginaIndex a, .paginaAgregar a {  
@@ -52,11 +52,11 @@
 }
 
 a:hover .btn-agregar{
-    width: 145%;
+    width: 135%;
 }
 
 a:hover .btn-jugar{
-    width: 105%;
+    width: 135%;
 }
 
 a:hover p{
@@ -90,10 +90,10 @@ a:hover p{
     bottom: 0%;
     left: 5%;
     width: 90%;
-    animation: aparecer 1s;
+    animation: horca 1s;
 }
 
-@keyframes aparecer { 
+@keyframes horca { 
     0% {
       opacity: 0;
     }
@@ -129,14 +129,15 @@ span{
     justify-content: center;
     display: flex;
     visibility: hidden;
-    font-size: 40px;
+    font-size: 50px;
     font-family: woodfont;
     color: white;
 }
 .palabra b{
     display: flex;
     position: absolute;
-    top: 25%;
+    top: 20%;
+    text-decoration: none;
 }
 
 span img{
@@ -188,11 +189,42 @@ span img{
     visibility: visible;
 }
 
+.cont-repetida{
+    position: absolute;
+    top: 30%;
+    right: 19%;
+}
+
+.repetida{
+    font-size: 30px;
+    font-family: woodfont;
+    color: white; 
+    text-shadow: 2px 2px 0px #000000;
+    display: block;
+    visibility: hidden;
+    animation: repetida 2.5s;
+}
+
+@keyframes repetida { 
+    0% {
+        visibility: visible;
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .jugar-nueva{
     position: absolute;
     top: 4%;
     left: 4%;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-content: center;
     width: 12%;
     cursor: pointer;
 }
@@ -200,20 +232,22 @@ span img{
     position: absolute;
     top: 4%;
     right: 4%;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-content: center;
     width: 12%;
     cursor: pointer;
 }
 
 .btn{
-    width: 100%;
+    width: 110%;
 }
 
 .texto-nueva, .texto-desistir{
     display: flex;
-    font-size: 200%;
+    text-align: center;
+    font-size: 230%;
     top: 25%;
-    left: 11%;
 }
 
 .intentos {
@@ -242,6 +276,61 @@ span img{
     color: #2CB094;
 }
 
+.alertaCorrecto-fondo, .alertaFallo-fondo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alertaCorrecto-fondo{
+    visibility: hidden;
+    animation: aparecer 3s;
+}
+.alertaFallo-fondo{
+    visibility: hidden;
+    animation: aparecer 3.5s;
+}
+
+@keyframes aparecer { 
+    0% {
+        visibility: visible;
+        opacity: 0;
+    }
+    30%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+}
+
+.alertaCorrecto{
+    position: absolute;
+    bottom: 40%;
+    width: 40%;
+}
+.alertaFallo{
+    position: absolute;
+    bottom: 40%;
+    width: 40%;
+    /* visibility: hidden; */
+}
+.texto-alertaFallo{
+    position: absolute;
+    color: #2CB094;
+    text-shadow: 4px 4px 0px #000000;
+    font-family: woodfont;
+    font-size: 380%;
+    /* visibility: hidden;    */
+}
+
 /* PAGINA AGREGAR */
 
 .fondo-agregar{
@@ -250,12 +339,12 @@ span img{
     width: 100%;
 }
 .botones-agregar{
-    width: 35%;
+    width: 40%;
     height: 15%;
     justify-content: space-between;
     position: absolute;
-    left: 33%;
-    bottom: 17%;
+    left: 30.5%;
+    bottom: 13%;
     display: flex;
     flex-direction: row;
 }
@@ -265,10 +354,10 @@ span img{
 }
 .texto-guardar{
     width: 35%;
-    font-size: 200%;
+    font-size: 250%;
 }
 .texto-cancelar{
-    font-size: 200%;
+    font-size: 250%;
 }
 .botones-agregar a{
     width: 47%;
@@ -283,24 +372,64 @@ a:hover .btn-guardar{
     text-align: center;
     color: #2CB094;
     resize: none;
+    word-wrap: break-word;
     background: none;
     border: none;
     font-family: woodfont;
     font-size: 400%;
-    height: 10%;
-    width: 25%;
+    height: 11%;
+    width: 30%;
     position: absolute;
     bottom: 50%;
-    left: 37%;
+    left: 35%;
 }
 ::placeholder{
+    position: relative;
+    top: 7px;
     text-align: center;
-    font-size: 65%;
+    font-size: 80%;
     color: gray;
 }
 .input-text:focus{
     outline: 0;
 }
+
+.cont-alertasAgregar{
+    position: absolute;
+    width: 35%;
+    bottom: 36%;
+    left: 33.5%;
+}
+
+.alertaAgregar{
+    position: absolute;
+    font-size: 25px;
+    font-family: woodfont;
+    text-align: center;
+    color: white;  
+    text-shadow: 2px 2px 0px #000000;
+    display: block;
+    visibility: hidden;
+    animation: alerta 4s;
+}
+
+@keyframes alerta { 
+    0% {
+        visibility: visible;
+        opacity: 0;
+    }
+    30%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
 
 /* APARTE */
 
